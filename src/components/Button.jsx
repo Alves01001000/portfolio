@@ -1,4 +1,4 @@
-function Button({content, img}) {
+function Button({content, link}) {
     return (
         <a
             href={link}
