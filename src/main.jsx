@@ -5,6 +5,7 @@ import Header from './components/Header'
 import HeroSection from './components/HeroSection'
 import AboutSection from './components/AboutSection'
 import Portfolio from './components/Portfolio'
+import ContactSection from './components/ContactSection'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -12,5 +13,6 @@ createRoot(document.getElementById('root')).render(
     <HeroSection />
     <AboutSection />
     <Portfolio />
+    <ContactSection/>
   </StrictMode>,
 )
