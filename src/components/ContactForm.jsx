@@ -3,12 +3,24 @@ import axios from "axios";
 
 function ContactForm() {
 
-  const [CEP, setCEP] = useState;
-
-  function verificarCEP(e){
-    if(e.target.value.length == 8)
-    alert(e.target.value)
+  const[CepErro, setCepErro] = useState(false) 
+  const[cidade, setCidade] = useState()
+  const[rua, setRua] = useState()
+    
+  const verificarCep = (e) => {
+    if(e.target.value.length == 8){
+        axios.get(`https://brasilapi.com.br/api/cep/v1/${e.target.value}`)
+        .then(function (response ) {
+          setCidade(response.data.city)
+          setRua(response.data.street)
+          setCepErro(false)
+        })
+        .catch(function (response) {
+          setCepErro(true)
+  })
+    }
   }
+
   return (
     <form className="p-6 bg-white rounded-lg shadow-md">
       <div className="mb-4">
@@ -50,10 +62,13 @@ function ContactForm() {
           type="text"
           id="cep"
           name="cep"
+          onChange={verificarCep}
           required
-          onChange={verificarCEP}
           className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200"
         />
+        {CepErro &&
+          <p className="text-red-500"> CEP Inválido</p>
+          }
       </div>
 
       <div className="mb-4">
@@ -62,6 +77,8 @@ function ContactForm() {
           type="text"
           id="rua"
           name="rua"
+          value={rua}
+          onChange={(e) => setRua(e.target.value)}
           required
           className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200"
         />
@@ -73,6 +90,8 @@ function ContactForm() {
           type="text"
           id="cidade"
           name="cidade"
+          value={cidade}
+          onChange={(e) => setCidade(e.target.value)}
           required
           className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200"
         />
@@ -93,7 +112,7 @@ function ContactForm() {
         Enviar
       </button>
     </form>
-  );
-};
+  )};
+
 
 export default ContactForm;

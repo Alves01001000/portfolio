@@ -1,6 +1,7 @@
-function Button({content, link}) {
+function Button({content, link, target}) {
     return (
         <a
+            target={"_blank"}
             href={link}
             className="
                 border-2
